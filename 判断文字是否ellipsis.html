@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .ellipsis {
+      width: 50%;
+      padding: 20px;
+      border: 1px solid #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div id="ellipsis" class="ellipsis">
+    <span id="content">
+      这是一段文字这是一段文字这是一段文字
+    </span>
+  </div>
+
+  <script>
+    const getPadding = (el) => {
+      const style = window.getComputedStyle(el, null)
+      const paddingLeft = Number.parseInt(style.paddingLeft, 10) || 0
+      const paddingRight = Number.parseInt(style.paddingRight, 10) || 0
+      const paddingTop = Number.parseInt(style.paddingTop, 10) || 0
+      const paddingBottom = Number.parseInt(style.paddingBottom, 10) || 0
+      return {
+        pLeft: paddingLeft,
+        pRight: paddingRight,
+        pTop: paddingTop,
+        pBottom: paddingBottom,
+      }
+    }
+    const checkEllipsis = () => {
+      const box = document.getElementById('ellipsis')
+      const content = document.getElementById('content')
+      const { pLeft, pRight } = getPadding(box)
+      const horizontalPadding = pLeft + pRight
+      if (box.clientWidth <= content.offsetWidth + horizontalPadding ) {
+        console.log('存在省略号')
+      } else {
+        console.log('容器宽度足够，没有省略号了')
+      }
+    }
+    checkEllipsis()
+  </script>
+</body>
+</html>
